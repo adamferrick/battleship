@@ -4,7 +4,7 @@ const _Square = () => {
   return { ship: null, receivedAttack: false };
 }
 
-const Gameboard = (size) => {
+const Gameboard = (size = 10) => {
   const _ships = [];
   const _board = new Array(size * size).fill().map(e => _Square());
 
@@ -26,7 +26,9 @@ const Gameboard = (size) => {
 
   function receiveAttack(x, y) {
     const idx = _xyToIdx(x, y)
-    if (_board[idx].ship !== null && !_board[idx].receivedAttack) {
+    if (_board[idx].receivedAttack) {
+      throw new Error(`${x}, ${y} has already been attacked`);
+    } else if (_board[idx].ship !== null) {
       _board[idx].ship.hit();
     }
     _board[idx].receivedAttack = true;

@@ -34,3 +34,9 @@ test('a board with two of two ships sunk should have all ships sunk', () => {
   board.receiveAttack(1, 1);
   expect(board.allShipsSunk()).toBe(true);
 });
+
+test('error if a square receives more than one attack', () => {
+  const board = Gameboard(1);
+  board.receiveAttack(0, 0);
+  expect(() => board.receiveAttack(0, 0)).toThrow(Error);
+});
