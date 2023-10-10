@@ -1,7 +1,91 @@
 :root {
     --background: #0f141a;
+    --foreground: #f6f6f6;
+    --hit-color: #396c9e;
+    --miss-color: #b3451d;
+    --unknown-color: #485251;
+
+    --circle-diameter: 30px;
+    --side-length: 40px;
+    --line-thickness: 10px;
+    --line-length: 30px;
+
+    --animation: 0.15s ease-in-out;
+    --radius: 25px;
 }
 
 body {
     background-color: var(--background);
+    color: var(--foreground);
+}
+
+.clock {
+    opacity: 0%;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(3, calc(3 * var(--side-length)));
+    grid-template-columns: repeat(3, calc(3 * var(--side-length)));
+    place-items: center;
+}
+
+.square {
+    width: var(--side-length);
+    height: var(--side-length);
+    transform: rotate(45deg);
+    transition: transform var(--animation);
+}
+
+.square div {
+    position: absolute;
+    border-radius: 50%;
+    transition: width var(--animation), height var(--animation), background-color var(--animation), opacity var(--animation), transform var(--animation);
+}
+
+.unknown div {
+    background-color: var(--unknown-color);
+    opacity: 30%;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    transform: translate(-50%, -50%);
+}
+
+.unknown:hover div {
+    opacity: 100%;
+    width: calc(1.1 * var(--circle-diameter));
+    height: calc(1.1 * var(--circle-diameter));
+}
+
+.hit div {
+    background-color: var(--hit-color);
+    border-radius: var(--radius);
+}
+
+.hit div:nth-child(1) {
+    transform: translate(-50%, -50%);
+    width: var(--line-thickness);
+    height: var(--line-length);
+}
+
+.hit div:nth-child(2) {
+    transform: translate(calc(-1 * var(--line-length) / 6 - 50%), calc(var(--line-length) / 2 - var(--line-thickness) / 2 - 50%));
+    width: calc(2 / 3 * var(--line-length));
+    height: var(--line-thickness)
+}
+
+.miss div {
+    background-color: var(--miss-color);
+    border-radius: var(--radius);
+    transform: translate(-50%, -50%);
+}
+
+.miss div:nth-child(1) {
+    width: var(--line-thickness);
+    height: var(--line-length);
+}
+
+.miss div:nth-child(2) {
+    width: var(--line-length);
+    height: var(--line-thickness);
 }
