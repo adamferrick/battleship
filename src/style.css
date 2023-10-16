@@ -10,6 +10,8 @@
     --line-thickness: 10px;
     --line-length: 30px;
 
+    --grid-size: 10;
+
     --animation: 0.15s ease-in-out;
     --radius: 25px;
 }
@@ -25,8 +27,8 @@ body {
 
 .grid {
     display: grid;
-    grid-template-rows: repeat(3, calc(3 * var(--side-length)));
-    grid-template-columns: repeat(3, calc(3 * var(--side-length)));
+    grid-template-rows: repeat(var(--grid-size), calc(1.5 * var(--side-length)));
+    grid-template-columns: repeat(var(--grid-size), calc(1.5 * var(--side-length)));
     place-items: center;
 }
 
