@@ -31,23 +31,28 @@ const ui = (player1, player2, boardSize = 10) => {
       // TODO: check if player 2 is sunk
       // player 2 should retaliate
       player2.actor.attack();
-      _updateGrid(player1Grid, player1.board, boardSize);
+      _updateGrid(player1Grid, player1.board, boardSize, reveal = true);
       // TODO: check if player 1 is sunk
     });
     player1Grid.appendChild(player1Square);
     player2Grid.appendChild(player2Square);
   }
+  _updateGrid(player2Grid, player2.board, boardSize);
+  _updateGrid(player1Grid, player1.board, boardSize, reveal = true);
 }
 
-function _updateGrid(grid, board, boardSize = 10) {
+function _updateGrid(grid, board, boardSize = 10, reveal = false) {
   for (let i = 0; i < boardSize * boardSize; i++) {
     if (board[i].receivedAttack) {
       grid.children[i].classList.remove('unrevealed');
+      grid.children[i].classList.remove('has-own-ship');
       if (board[i].ship !== null) {
         grid.children[i].classList.add('hit');
       } else {
         grid.children[i].classList.add('miss');
       }
+    } else if (reveal && board[i].ship !== null) {
+      grid.children[i].classList.add('has-own-ship');
     }
   }
 }

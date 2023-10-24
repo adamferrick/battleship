@@ -53,6 +53,10 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.unrevealed.has-own-ship div {
+    background-color: var(--hit-color);
+}
+
 .unrevealed:hover div {
     opacity: 100%;
     width: calc(1.1 * var(--circle-diameter));
