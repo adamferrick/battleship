@@ -2,7 +2,7 @@ const { xyToIdx, idxToXy } = require('./coords');
 
 function _square(attackCb) {
   const square = document.createElement('div');
-  square.classList = 'square unknown';
+  square.classList = 'square unrevealed';
   square.appendChild(document.createElement('div'));
   square.appendChild(document.createElement('div'));
   if (attackCb !== undefined) {
@@ -42,7 +42,7 @@ const ui = (player1, player2, boardSize = 10) => {
 function _updateGrid(grid, board, boardSize = 10) {
   for (let i = 0; i < boardSize * boardSize; i++) {
     if (board[i].receivedAttack) {
-      grid.children[i].classList.remove('unknown');
+      grid.children[i].classList.remove('unrevealed');
       if (board[i].ship !== null) {
         grid.children[i].classList.add('hit');
       } else {

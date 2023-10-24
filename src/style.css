@@ -3,7 +3,7 @@
     --foreground: #f6f6f6;
     --hit-color: #396c9e;
     --miss-color: #b3451d;
-    --unknown-color: #485251;
+    --unrevealed-color: #485251;
 
     --circle-diameter: 30px;
     --side-length: 40px;
@@ -45,15 +45,15 @@ body {
     transition: width var(--animation), height var(--animation), background-color var(--animation), opacity var(--animation), transform var(--animation);
 }
 
-.unknown div {
-    background-color: var(--unknown-color);
+.unrevealed div {
+    background-color: var(--unrevealed-color);
     opacity: 30%;
     width: var(--circle-diameter);
     height: var(--circle-diameter);
     transform: translate(-50%, -50%);
 }
 
-.unknown:hover div {
+.unrevealed:hover div {
     opacity: 100%;
     width: calc(1.1 * var(--circle-diameter));
     height: calc(1.1 * var(--circle-diameter));
