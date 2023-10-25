@@ -1,8 +1,8 @@
 :root {
     --background: #0f141a;
     --foreground: #f6f6f6;
-    --hit-color: #396c9e;
-    --miss-color: #b3451d;
+    --player1-color: #396c9e;
+    --player2-color: #b3451d;
     --unrevealed-color: #485251;
 
     --circle-diameter: 30px;
@@ -19,6 +19,14 @@
 body {
     background-color: var(--background);
     color: var(--foreground);
+}
+
+#player1 h2 {
+    color: var(--player1-color);
+}
+
+#player2 h2 {
+    color: var(--player2-color);
 }
 
 .clock {
@@ -54,7 +62,7 @@ body {
 }
 
 .unrevealed.has-own-ship div {
-    background-color: var(--hit-color);
+    background-color: var(--player1-color);
 }
 
 .unrevealed:hover div {
@@ -63,35 +71,50 @@ body {
     height: calc(1.1 * var(--circle-diameter));
 }
 
+#player1 .square.hit div {
+    background-color: var(--player1-color);
+}
+
+#player2 .square.hit div {
+    background-color: var(--player2-color);
+}
+
 .hit div {
-    background-color: var(--hit-color);
     border-radius: var(--radius);
 }
 
-.hit div:nth-child(1) {
+#player2 .square.hit div:nth-child(1) {
     transform: translate(-50%, -50%);
     width: var(--line-thickness);
     height: var(--line-length);
 }
 
-.hit div:nth-child(2) {
+#player2 .square.hit div:nth-child(2) {
     transform: translate(calc(-1 * var(--line-length) / 6 - 50%), calc(var(--line-length) / 2 - var(--line-thickness) / 2 - 50%));
     width: calc(2 / 3 * var(--line-length));
     height: var(--line-thickness)
 }
 
 .miss div {
-    background-color: var(--miss-color);
+    opacity: 0%;
+    border-radius: var(--radius);
+    transform: translate(-50%, -50%);
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+}
+
+#player1 .square.hit div {
+    background-color: var(--player1-color);
     border-radius: var(--radius);
     transform: translate(-50%, -50%);
 }
 
-.miss div:nth-child(1) {
+#player1 .square.hit div:nth-child(1) {
     width: var(--line-thickness);
     height: var(--line-length);
 }
 
-.miss div:nth-child(2) {
+#player1 .square.hit div:nth-child(2) {
     width: var(--line-length);
     height: var(--line-thickness);
 }
