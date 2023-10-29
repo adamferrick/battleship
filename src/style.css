@@ -93,7 +93,7 @@ h2 {
     transform: translate(-50%, -50%);
 }
 
-.unrevealed:hover div {
+#player2 .unrevealed:hover div {
     opacity: 100%;
     width: calc(1.1 * var(--circle-diameter));
     height: calc(1.1 * var(--circle-diameter));
