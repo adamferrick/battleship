@@ -80,6 +80,8 @@ h2 {
 
 #player1 .unrevealed.has-own-ship div {
     background-color: rgba(var(--player1-color), 100%) !important;
+    width: calc(1.1 * var(--circle-diameter));
+    height: calc(1.1 * var(--circle-diameter));
 }
 
 #player2 .unrevealed div {
