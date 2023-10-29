@@ -1,9 +1,8 @@
 :root {
     --background: #0f141a;
     --foreground: #f6f6f6;
-    --player1-color: #396c9e;
-    --player2-color: #b3451d;
-    --unrevealed-color: #485251;
+    --player1-color: 57, 108, 158;
+    --player2-color: 179, 69, 29;
 
     --circle-diameter: 30px;
     --side-length: 40px;
@@ -19,14 +18,28 @@
 body {
     background-color: var(--background);
     color: var(--foreground);
+    display: flex;
+    justify-content: space-around;
+}
+
+body div {
+    border-radius: var(--radius);
+}
+
+body div#player1 {
+    background-color: rgba(var(--player1-color), 20%);
+}
+
+body div#player2 {
+    background-color: rgba(var(--player2-color), 20%);
 }
 
 #player1 h2 {
-    color: var(--player1-color);
+    color: rgba(var(--player1-color), 100%);
 }
 
 #player2 h2 {
-    color: var(--player2-color);
+    color: rgba(var(--player2-color), 100%);
 }
 
 .clock {
@@ -53,16 +66,23 @@ body {
     transition: width var(--animation), height var(--animation), background-color var(--animation), opacity var(--animation), transform var(--animation);
 }
 
+#player1 .unrevealed div {
+    background-color: rgba(var(--player1-color), 30%);
+}
+
+#player1 .unrevealed.has-own-ship div {
+    background-color: rgba(var(--player1-color), 100%) !important;
+}
+
+#player2 .unrevealed div {
+    background-color: rgba(var(--player2-color), 30%);
+}
+
 .unrevealed div {
-    background-color: var(--unrevealed-color);
     opacity: 30%;
     width: var(--circle-diameter);
     height: var(--circle-diameter);
     transform: translate(-50%, -50%);
-}
-
-.unrevealed.has-own-ship div {
-    background-color: var(--player1-color);
 }
 
 .unrevealed:hover div {
@@ -72,11 +92,11 @@ body {
 }
 
 #player1 .square.hit div {
-    background-color: var(--player1-color);
+    background-color: rgba(var(--player1-color), 100%);
 }
 
 #player2 .square.hit div {
-    background-color: var(--player2-color);
+    background-color: rgba(var(--player2-color), 100%);
 }
 
 .hit div {
@@ -104,7 +124,6 @@ body {
 }
 
 #player1 .square.hit div {
-    background-color: var(--player1-color);
     border-radius: var(--radius);
     transform: translate(-50%, -50%);
 }
