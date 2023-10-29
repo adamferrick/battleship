@@ -12,33 +12,30 @@ function _square(attackCb) {
 }
 
 /*
-* player1 and player2 are objects with fields 'sel' and 'board', and 'actor'.
-* 'sel' is a selector for the player's own grid.
-* 'board' is the 'board' field for the player's Gameboard object.
-* 'actor' is the Player object associated with that player
+* 'player1Sel' and 'player2Sel' are selector strings for each player's grid.
+* 'attack' is a callback that takes x,y coordinates for the square on player 2's board that player 1 is attacking.
 */
-const ui = (player1, player2, boardSize = 10) => {
-  const player1Grid = document.querySelector(player1.sel);
-  const player2Grid = document.querySelector(player2.sel);
+const Ui = (player1Sel, player2Sel, attack, boardSize = 10) => {
+  const _player1Grid = document.querySelector(player1Sel);
+  const _player2Grid = document.querySelector(player2Sel);
 
   for (let i = 0; i < boardSize * boardSize; i++) {
     const player1Square = _square();
     const player2Square = _square(() => {
       // player 1 has attacked this square
       const coords = idxToXy(i);
-      player1.actor.attackSquare(coords.x, coords.y);
-      _updateGrid(player2Grid, player2.board, boardSize);
-      // TODO: check if player 2 is sunk
-      // player 2 should retaliate
-      player2.actor.attack();
-      _updateGrid(player1Grid, player1.board, boardSize, reveal = true);
-      // TODO: check if player 1 is sunk
+      attack(coords.x, coords.y);
     });
-    player1Grid.appendChild(player1Square);
-    player2Grid.appendChild(player2Square);
+    _player1Grid.appendChild(player1Square);
+    _player2Grid.appendChild(player2Square);
   }
-  _updateGrid(player2Grid, player2.board, boardSize);
-  _updateGrid(player1Grid, player1.board, boardSize, reveal = true);
+
+  function updateGrids(player1Board, player2Board) {
+    _updateGrid(_player2Grid, player2Board, boardSize);
+    _updateGrid(_player1Grid, player1Board, boardSize, reveal = true);
+  }
+
+  return { updateGrids };
 }
 
 function _updateGrid(grid, board, boardSize = 10, reveal = false) {
@@ -57,4 +54,4 @@ function _updateGrid(grid, board, boardSize = 10, reveal = false) {
   }
 }
 
-module.exports = ui;
+module.exports = Ui;
