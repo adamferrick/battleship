@@ -23,6 +23,7 @@ body {
 }
 
 .player {
+    padding: 10px;
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
@@ -35,6 +36,10 @@ body div#player1 {
 
 body div#player2 {
     background-color: rgba(var(--player2-color), 20%);
+}
+
+h2 {
+    margin: 0px;
 }
 
 #player1 h2 {
