@@ -13,6 +13,8 @@
 
     --animation: 0.15s ease-in-out;
     --radius: 25px;
+
+    --pad: 10px;
 }
 
 body {
@@ -26,7 +28,7 @@ body {
 }
 
 .player {
-    padding: 10px;
+    padding: var(--pad);
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
@@ -149,4 +151,13 @@ h2 {
 #player1 .square.hit div:nth-child(2) {
     width: var(--line-length);
     height: var(--line-thickness);
+}
+
+#information {
+    display: flex;
+    justify-content: center;
+}
+
+#message-box {
+    padding: var(--pad);
 }
