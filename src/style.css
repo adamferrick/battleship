@@ -161,3 +161,16 @@ h2 {
 #message-box {
     padding: var(--pad);
 }
+
+.victory {
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.player1-message {
+    color: rgba(var(--player1-color), 100%);
+}
+
+.player2-message {
+    color: rgba(var(--player2-color), 100%);
+}

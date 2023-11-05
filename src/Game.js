@@ -11,6 +11,9 @@ const Game = (size = 10) => {
   const _player1 = Player(_player2Gameboard);
   const _player2 = AiPlayer(_player1Gameboard);
 
+  const _player1VictoryClass = 'player1-message victory';
+  const _player2VictoryClass = 'player2-message victory';
+
   let _gameOver = false;
 
   function update() {
@@ -18,11 +21,11 @@ const Game = (size = 10) => {
     if (_player2Gameboard.allShipsSunk()) {
       _gameOver = true;
       console.log('Player 1 wins!');
-      _ui.print('Player 1 wins!');
+      _ui.print('Player 1 wins!', _player1VictoryClass);
     } else if (_player1Gameboard.allShipsSunk()) {
       _gameOver = true;
       console.log('Player 2 wins!');
-      _ui.print('Player 2 wins!');
+      _ui.print('Player 2 wins!', _player2VictoryClass);
     }
   }
 
