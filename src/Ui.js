@@ -15,10 +15,10 @@ function _square(attackCb) {
 * 'player1Sel' and 'player2Sel' are selector strings for each player's grid.
 * 'attack' is a callback that takes x,y coordinates for the square on player 2's board that player 1 is attacking.
 */
-const Ui = (player1Sel, player2Sel, victoryMessageSel, attack, boardSize = 10) => {
+const Ui = (player1Sel, player2Sel, messageBoxSel, attack, boardSize = 10) => {
   const _player1Grid = document.querySelector(player1Sel);
   const _player2Grid = document.querySelector(player2Sel);
-  const _victoryMessageBox = document.querySelector(victoryMessageSel);
+  const _messageBox = document.querySelector(messageBoxSel);
 
   for (let i = 0; i < boardSize * boardSize; i++) {
     const player1Square = _square();
@@ -36,15 +36,12 @@ const Ui = (player1Sel, player2Sel, victoryMessageSel, attack, boardSize = 10) =
     _updateGrid(_player1Grid, player1Board, boardSize, reveal = true);
   }
 
-  function player1Victory(message) {
-    _victoryMessageBox.textContent = message;
+  function print(message, classes = '') {
+    _messageBox.textContent = message;
+    _messageBox.className = classes;
   }
 
-  function player2Victory(message) {
-    _victoryMessageBox.textContent = message;
-  }
-
-  return { updateGrids, player1Victory, player2Victory };
+  return { updateGrids, print, };
 }
 
 function _updateGrid(grid, board, boardSize = 10, reveal = false) {

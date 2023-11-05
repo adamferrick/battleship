@@ -18,11 +18,11 @@ const Game = (size = 10) => {
     if (_player2Gameboard.allShipsSunk()) {
       _gameOver = true;
       console.log('Player 1 wins!');
-      _ui.player1Victory('Player 1 wins!');
+      _ui.print('Player 1 wins!');
     } else if (_player1Gameboard.allShipsSunk()) {
       _gameOver = true;
       console.log('Player 2 wins!');
-      _ui.player2Victory('Player 2 wins!');
+      _ui.print('Player 2 wins!');
     }
   }
 
@@ -37,7 +37,7 @@ const Game = (size = 10) => {
     }
   }
 
-  const _ui = Ui('#player1 .grid', '#player2 .grid', '#victory-message', _attackSelected, size);
+  const _ui = Ui('#player1 .grid', '#player2 .grid', '#message-box', _attackSelected, size);
   update();
 
   return { update };
