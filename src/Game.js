@@ -2,11 +2,11 @@ const Ui = require('./Ui');
 const Gameboard = require('./Gameboard');
 const { Player, AiPlayer } = require('./Player');
 
-const Game = (size = 10) => {
+const Game = (size = 10, lengths = [5, 4, 3, 3, 2]) => {
   const _player1Gameboard = Gameboard(size);
-  _player1Gameboard.placeShip(1, 0, 0);
+  _player1Gameboard.placeRandomFleet(lengths);
   const _player2Gameboard = Gameboard(size);
-  _player2Gameboard.placeShip(1, 0, 0);
+  _player2Gameboard.placeRandomFleet(lengths);
 
   const _player1 = Player(_player2Gameboard);
   const _player2 = AiPlayer(_player1Gameboard);

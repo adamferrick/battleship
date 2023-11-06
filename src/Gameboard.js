@@ -1,8 +1,16 @@
 const Ship = require('./Ship');
-const { xyToIdx } = require('./coords');
+const { xyToIdx, idxToXy } = require('./coords');
 
 const _Square = () => {
   return { ship: null, receivedAttack: false };
+}
+
+// shuffles an array in place.
+function _shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
 const Gameboard = (size = 10) => {
@@ -43,6 +51,25 @@ const Gameboard = (size = 10) => {
     }
   }
 
+  // 'lengths' is an array of numbers, representing the lengths of individual ships in the fleet.
+  function placeRandomFleet(lengths) {
+    let candidates = new Array(size * size).fill().map((e, i) => i);
+    _shuffle(candidates);
+    lengths.forEach(e => {
+      const vertical = Math.random() < 0.5;
+      for (let i = 0; i < candidates.length; i++) {
+        const xy = idxToXy(candidates[i], size);
+        if (validShipPlace(e, xy.x, xy.y, vertical)) {
+          placeShip(e, xy.x, xy.y, vertical);
+          break;
+        } else if (validShipPlace(e, xy.x, xy.y, !vertical)) {
+          placeShip(e, xy.x, xy.y, !vertical);
+          break;
+        }
+      }
+    });
+  }
+
   function receiveAttack(x, y) {
     const idx = xyToIdx(x, y, size)
     if (board[idx].receivedAttack) {
@@ -57,7 +84,7 @@ const Gameboard = (size = 10) => {
     return _ships.every(e => e.isSunk());
   }
 
-  return { board, validShipPlace, placeShip, receiveAttack, allShipsSunk };
+  return { board, validShipPlace, placeShip, placeRandomFleet, receiveAttack, allShipsSunk };
 }
 
 module.exports = Gameboard;
