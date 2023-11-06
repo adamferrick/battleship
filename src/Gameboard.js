@@ -10,6 +10,10 @@ const Gameboard = (size = 10) => {
   const board = new Array(size * size).fill().map(e => _Square());
 
   function validShipPlace(length, x, y, vertical = true) {
+    if ((vertical ? y : x) + length > size) {
+      // the ship spills off the board
+      return false;
+    }
     for (let offset = 0; offset < length; offset++) {
       const idx = xyToIdx(
         !vertical ? x + offset : x,

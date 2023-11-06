@@ -1,5 +1,10 @@
 const Gameboard = require('../src/Gameboard');
 
+test('an empty square should be a valid ship place', () => {
+  const board = Gameboard(1);
+  expect(board.validShipPlace(1, 0, 0)).toBe(true);
+});
+
 test('a filled square should not be a valid ship place', () => {
   const board = Gameboard(1);
   board.placeShip(1, 0, 0);
@@ -10,6 +15,11 @@ test('placing a ship in a filled square should be an error', () => {
   const board = Gameboard(1);
   board.placeShip(1, 0, 0);
   expect(() => board.placeShip(1, 0, 0)).toThrow(Error);
+});
+
+test('a ship that begins on the board but spills off it should be invalid', () => {
+  const board = Gameboard(2);
+  expect(board.validShipPlace(3, 0, 0)).toBe(false);
 });
 
 test('an empty board should have all ships sunk', () => {
