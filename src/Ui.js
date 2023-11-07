@@ -41,21 +41,35 @@ const Ui = (player1Sel, player2Sel, messageBoxSel, attack, boardSize = 10) => {
     _messageBox.className = classes;
   }
 
-  return { updateGrids, print, };
+  // applies classes to applicable squares on player 1's board.
+  function previewShip(length, x, y, isVertical, classes) {
+    let maxOffset = Math.min(length, boardSize - (isVertical ? y : x));
+    for (let offset = 0; offset < maxOffset; offset++) {
+      const idx = xyToIdx(
+        isVertical ? x : x + offset,
+        isVertical ? y + offset : x,
+        boardSize,
+      );
+      _player1Grid.children[idx].className = classes;
+    }
+  }
+
+  return { updateGrids, print, previewShip };
 }
 
 function _updateGrid(grid, board, boardSize = 10, reveal = false) {
   for (let i = 0; i < boardSize * boardSize; i++) {
+    grid.children[i].className = 'square';
     if (board[i].receivedAttack) {
-      grid.children[i].classList.remove('unrevealed');
-      grid.children[i].classList.remove('has-own-ship');
       if (board[i].ship !== null) {
         grid.children[i].classList.add('hit');
       } else {
         grid.children[i].classList.add('miss');
       }
     } else if (reveal && board[i].ship !== null) {
-      grid.children[i].classList.add('has-own-ship');
+      grid.children[i].classList.add('unrevealed', 'has-own-ship');
+    } else {
+      grid.children[i].classList.add('unrevealed');
     }
   }
 }
