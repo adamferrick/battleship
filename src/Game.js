@@ -43,10 +43,17 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
   }
 
   function _previewSelected(x, y) {
-    update();
-    if (_placing < shipLengths.length) {
-      _ui.previewShip(shipLengths[_placing], x, y, _placingVertical, 'square hit');
+    if (_placing >= shipLengths.length) {
+      return;
     }
+    update();
+    _ui.previewShip(
+      shipLengths[_placing],
+      x,
+      y,
+      _placingVertical,
+      _player1Gameboard.validShipPlace(shipLengths[_placing], x, y, _placingVertical) ? 'square unrevealed has-own-ship' : 'square hit',
+    );
   }
 
   const _ui = Ui('#player1 .grid', '#player2 .grid', '#message-box', _attackSelected, _previewSelected, size);
