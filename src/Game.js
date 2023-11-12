@@ -47,16 +47,20 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
       return;
     }
     update();
-    _ui.previewShip(
-      shipLengths[_placing],
-      x,
-      y,
-      _placingVertical,
-      _player1Gameboard.validShipPlace(shipLengths[_placing], x, y, _placingVertical) ? 'square unrevealed has-own-ship' : 'square hit',
-    );
+    if (_player1Gameboard.validShipPlace(shipLengths[_placing], x, y, _placingVertical)) {
+      _ui.previewShip(shipLengths[_placing], x, y, _placingVertical, 'square unrevealed has-own-ship');
+    }
   }
 
-  const _ui = Ui('#player1 .grid', '#player2 .grid', '#message-box', _attackSelected, _previewSelected, size);
+  const _ui = Ui(
+    '#player1 .grid',
+    '#player2 .grid',
+    '#message-box',
+    _attackSelected,
+    _previewSelected,
+    update,
+    size
+  );
   update();
 
   return { update };

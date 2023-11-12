@@ -11,6 +11,9 @@ function _square(cbs) {
   if (cbs.hover !== undefined) {
     square.onmouseenter = cbs.hover;
   }
+  if (cbs.leave !== undefined) {
+    square.onmouseleave = cbs.leave;
+  }
   return square;
 }
 
@@ -18,14 +21,17 @@ function _square(cbs) {
 * 'player1Sel' and 'player2Sel' are selector strings for each player's grid.
 * 'attack' is a callback that takes x,y coordinates for the square on player 2's board that player 1 is attacking.
 */
-const Ui = (player1Sel, player2Sel, messageBoxSel, attack, preview, boardSize = 10) => {
+const Ui = (player1Sel, player2Sel, messageBoxSel, attack, preview, erasePreview, boardSize = 10) => {
   const _player1Grid = document.querySelector(player1Sel);
   const _player2Grid = document.querySelector(player2Sel);
   const _messageBox = document.querySelector(messageBoxSel);
 
   for (let i = 0; i < boardSize * boardSize; i++) {
     const coords = idxToXy(i);
-    const player1Square = _square({ hover: () => preview(coords.x, coords.y)});
+    const player1Square = _square({
+      hover: () => preview(coords.x, coords.y),
+      leave: () => erasePreview(),
+    });
     const player2Square = _square({ click: () => attack(coords.x, coords.y)});
     _player1Grid.appendChild(player1Square);
     _player2Grid.appendChild(player2Square);
