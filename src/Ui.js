@@ -1,12 +1,15 @@
 const { xyToIdx, idxToXy } = require('./coords');
 
-function _square(attackCb) {
+function _square(cbs) {
   const square = document.createElement('div');
   square.classList = 'square unrevealed';
   square.appendChild(document.createElement('div'));
   square.appendChild(document.createElement('div'));
-  if (attackCb !== undefined) {
-    square.onclick = attackCb;
+  if (cbs.click !== undefined) {
+    square.onclick = cbs.click;
+  }
+  if (cbs.hover !== undefined) {
+    square.onmouseenter = cbs.hover;
   }
   return square;
 }
@@ -15,18 +18,15 @@ function _square(attackCb) {
 * 'player1Sel' and 'player2Sel' are selector strings for each player's grid.
 * 'attack' is a callback that takes x,y coordinates for the square on player 2's board that player 1 is attacking.
 */
-const Ui = (player1Sel, player2Sel, messageBoxSel, attack, boardSize = 10) => {
+const Ui = (player1Sel, player2Sel, messageBoxSel, attack, preview, boardSize = 10) => {
   const _player1Grid = document.querySelector(player1Sel);
   const _player2Grid = document.querySelector(player2Sel);
   const _messageBox = document.querySelector(messageBoxSel);
 
   for (let i = 0; i < boardSize * boardSize; i++) {
-    const player1Square = _square();
-    const player2Square = _square(() => {
-      // player 1 has attacked this square
-      const coords = idxToXy(i);
-      attack(coords.x, coords.y);
-    });
+    const coords = idxToXy(i);
+    const player1Square = _square({ hover: () => preview(coords.x, coords.y)});
+    const player2Square = _square({ click: () => attack(coords.x, coords.y)});
     _player1Grid.appendChild(player1Square);
     _player2Grid.appendChild(player2Square);
   }
@@ -47,7 +47,7 @@ const Ui = (player1Sel, player2Sel, messageBoxSel, attack, boardSize = 10) => {
     for (let offset = 0; offset < maxOffset; offset++) {
       const idx = xyToIdx(
         isVertical ? x : x + offset,
-        isVertical ? y + offset : x,
+        isVertical ? y + offset : y,
         boardSize,
       );
       _player1Grid.children[idx].className = classes;

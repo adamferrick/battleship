@@ -2,11 +2,11 @@ const Ui = require('./Ui');
 const Gameboard = require('./Gameboard');
 const { Player, AiPlayer } = require('./Player');
 
-const Game = (size = 10, lengths = [5, 4, 3, 3, 2]) => {
+const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
   const _player1Gameboard = Gameboard(size);
-  _player1Gameboard.placeRandomFleet(lengths);
+  _player1Gameboard.placeRandomFleet(shipLengths);
   const _player2Gameboard = Gameboard(size);
-  _player2Gameboard.placeRandomFleet(lengths);
+  _player2Gameboard.placeRandomFleet(shipLengths);
 
   const _player1 = Player(_player2Gameboard);
   const _player2 = AiPlayer(_player1Gameboard);
@@ -14,6 +14,8 @@ const Game = (size = 10, lengths = [5, 4, 3, 3, 2]) => {
   const _player1VictoryClass = 'player1-message victory';
   const _player2VictoryClass = 'player2-message victory';
 
+  let _placing = 0;
+  let _placingVertical = false;
   let _gameOver = false;
 
   function update() {
@@ -40,7 +42,14 @@ const Game = (size = 10, lengths = [5, 4, 3, 3, 2]) => {
     }
   }
 
-  const _ui = Ui('#player1 .grid', '#player2 .grid', '#message-box', _attackSelected, size);
+  function _previewSelected(x, y) {
+    update();
+    if (_placing < shipLengths.length) {
+      _ui.previewShip(shipLengths[_placing], x, y, _placingVertical, 'square hit');
+    }
+  }
+
+  const _ui = Ui('#player1 .grid', '#player2 .grid', '#message-box', _attackSelected, _previewSelected, size);
   update();
 
   return { update };
