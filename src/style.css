@@ -184,4 +184,9 @@ button {
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
+    transition: opacity var(--animation);
+}
+
+.hidden {
+    opacity: 0%;
 }

@@ -19,17 +19,21 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
 
   function update() {
     _ui.updateGrids(_player1Gameboard.board, _player2Gameboard.board);
-    _ui.print('');
     if (_placing < shipLengths.length) {
       _ui.print(`Place a ship of length ${shipLengths[_placing]}`);
-    } else if (_player2Gameboard.allShipsSunk()) {
-      _gameOver = true;
-      console.log('Player 1 wins!');
-      _ui.print('Player 1 wins!', _player1VictoryClass);
-    } else if (_player1Gameboard.allShipsSunk()) {
-      _gameOver = true;
-      console.log('Player 2 wins!');
-      _ui.print('Player 2 wins!', _player2VictoryClass);
+    } else {
+      _ui.styleOrientButton('hidden');
+      if (_player2Gameboard.allShipsSunk()) {
+        _gameOver = true;
+        console.log('Player 1 wins!');
+        _ui.print('Player 1 wins!', _player1VictoryClass);
+      } else if (_player1Gameboard.allShipsSunk()) {
+        _gameOver = true;
+        console.log('Player 2 wins!');
+        _ui.print('Player 2 wins!', _player2VictoryClass);
+      } else {
+        _ui.print('Select a square to attack');
+      }
     }
   }
 
