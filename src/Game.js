@@ -12,6 +12,7 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
 
   const _player1VictoryClass = 'player1-message victory';
   const _player2VictoryClass = 'player2-message victory';
+  const _player1MessageClass = 'player1-message';
 
   let _placing = 0;
   let _placingVertical = false;
@@ -20,7 +21,7 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
   function update() {
     _ui.updateGrids(_player1Gameboard.board, _player2Gameboard.board);
     if (_placing < shipLengths.length) {
-      _ui.print(`Place a ship of length ${shipLengths[_placing]}`);
+      _ui.print(`Place a ship of length ${shipLengths[_placing]}`, _player1MessageClass);
     } else {
       _ui.styleOrientButton('hidden');
       if (_player2Gameboard.allShipsSunk()) {
@@ -32,7 +33,7 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
         console.log('Player 2 wins!');
         _ui.print('Player 2 wins!', _player2VictoryClass);
       } else {
-        _ui.print('Select a square to attack');
+        _ui.print('Select a square to attack', _player1MessageClass);
       }
     }
   }

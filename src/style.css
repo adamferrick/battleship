@@ -164,12 +164,14 @@ h2 {
 }
 
 .victory {
-    font-size: 1.5em;
-    font-weight: bolder;
+    font-size: 1.5em !important;
+    font-weight: bolder !important;
 }
 
 .player1-message {
     color: rgba(var(--player1-color), 100%);
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .player2-message {
