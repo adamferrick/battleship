@@ -21,7 +21,7 @@ function _square(cbs) {
 * 'player1Sel' and 'player2Sel' are selector strings for each player's grid.
 * 'attack' is a callback that takes x,y coordinates for the square on player 2's board that player 1 is attacking.
 */
-const Ui = (player1Sel, player2Sel, messageBoxSel, switchOrientationSel, switchOrientation, attack, preview, erasePreview, boardSize = 10) => {
+const Ui = (player1Sel, player2Sel, messageBoxSel, switchOrientationSel, switchOrientation, attack, preview, erasePreview, place, boardSize = 10) => {
   const _player1Grid = document.querySelector(player1Sel);
   const _player2Grid = document.querySelector(player2Sel);
   const _messageBox = document.querySelector(messageBoxSel);
@@ -32,6 +32,7 @@ const Ui = (player1Sel, player2Sel, messageBoxSel, switchOrientationSel, switchO
   for (let i = 0; i < boardSize * boardSize; i++) {
     const coords = idxToXy(i);
     const player1Square = _square({
+      click: () => place(coords.x, coords.y),
       hover: () => preview(coords.x, coords.y),
       leave: () => erasePreview(),
     });

@@ -52,6 +52,13 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
     }
   }
 
+  function _placeShip(x, y) {
+    if (_placing < shipLengths.length && _player1Gameboard.validShipPlace(shipLengths[_placing], x, y, _placingVertical)) {
+      _player1Gameboard.placeShip(shipLengths[_placing++], x, y, _placingVertical);
+      update();
+    }
+  }
+
   const _ui = Ui(
     '#player1 .grid',
     '#player2 .grid',
@@ -61,7 +68,8 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
     _attackSelected,
     _previewSelected,
     update,
-    size
+    _placeShip,
+    size,
   );
   update();
 
