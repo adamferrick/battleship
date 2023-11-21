@@ -34,6 +34,9 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
   }
 
   function _attackSelected(x, y) {
+    if (_placing < shipLengths.length) {
+      return;
+    }
     if (!_gameOver) {
       _player1.attackSquare(x, y);
       update();
