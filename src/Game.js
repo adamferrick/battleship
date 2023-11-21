@@ -4,7 +4,6 @@ const { Player, AiPlayer } = require('./Player');
 
 const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
   const _player1Gameboard = Gameboard(size);
-  _player1Gameboard.placeRandomFleet(shipLengths);
   const _player2Gameboard = Gameboard(size);
   _player2Gameboard.placeRandomFleet(shipLengths);
 
@@ -20,7 +19,10 @@ const Game = (size = 10, shipLengths = [5, 4, 3, 3, 2]) => {
 
   function update() {
     _ui.updateGrids(_player1Gameboard.board, _player2Gameboard.board);
-    if (_player2Gameboard.allShipsSunk()) {
+    _ui.print('');
+    if (_placing < shipLengths.length) {
+      _ui.print(`Place a ship of length ${shipLengths[_placing]}`);
+    } else if (_player2Gameboard.allShipsSunk()) {
       _gameOver = true;
       console.log('Player 1 wins!');
       _ui.print('Player 1 wins!', _player1VictoryClass);
